@@ -2,8 +2,6 @@ package com.rifqi.sipalingstoryapp.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
 
 data class Story(
     val id: String,
@@ -19,11 +17,10 @@ data class Story(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.readString().toString()`,
+        parcel.readString().toString(),
         parcel.readDouble(),
         parcel.readDouble()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
