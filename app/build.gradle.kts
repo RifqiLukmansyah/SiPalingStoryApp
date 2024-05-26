@@ -1,0 +1,83 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
+}
+
+android {
+    namespace = "com.rifqi.sipalingstoryapp"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.rifqi.sipalingstoryapp"
+        minSdk = 34
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "baseUrl", "\"https://story-api.dicoding.dev/v1/\"")
+    }
+    buildFeatures{
+        buildConfig = true
+        dataBinding = true
+        viewBinding = true
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    // EXIF(Exchangeable Image File Format)
+    implementation(libs.androidx.exifinterface)
+
+    // Koin Dependency Injection
+    implementation(libs.koin.android)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Okhttp
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Glide
+    implementation(libs.glide)
+    ksp(libs.compiler)
+
+    //room
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+}
