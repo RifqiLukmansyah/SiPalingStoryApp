@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 
 import android.view.View
+import android.widget.EditText
 
 import androidx.appcompat.widget.AppCompatEditText
 
@@ -48,5 +49,10 @@ class EmailEditText(context: Context, attrs: AttributeSet? = null, defStyleAttr:
         hint = context.getString(R.string.hint_email)
         isSingleLine = true
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+    }
+
+    fun EditText.showError(message: String) {
+        error = message
+        requestFocus()
     }
 }

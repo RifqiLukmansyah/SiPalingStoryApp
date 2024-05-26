@@ -51,7 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLoginSubtitle" />
         
-        <com.rifqi.sipalingstoryapp.customview.FullNameEditText
+        <com.rifqi.sipalingstoryapp.ui.customview.FullNameEditText
             android:id="@+id/edtName"
             android:background="@drawable/bg_bordered_edit_text"
             android:maxLines="1"
@@ -76,7 +76,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLoginSubtitle" />
 
-        <com.rifqi.sipalingstoryapp.customview.EmailEditText
+        <com.rifqi.sipalingstoryapp.ui.customview.EmailEditText
             android:id="@+id/edtEmail"
             android:hint="@string/hint_email"
             android:layout_width="match_parent"
@@ -101,7 +101,7 @@
             app:layout_constraintTop_toBottomOf="@id/edtEmail"
             app:layout_constraintStart_toStartOf="@id/edtEmail"/>
 
-        <com.rifqi.sipalingstoryapp.customview.PasswordEditText
+        <com.rifqi.sipalingstoryapp.ui.customview.PasswordEditText
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,23 +133,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edtPassword" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_continue"
-            android:layout_marginHorizontal="16dp"
-            android:layout_height="60dp"
-            android:layout_width="match_parent"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            app:rippleColor="#40FFFFFF"
-            app:cornerRadius="8dp"
-            android:textSize="14sp"
-            android:layout_marginTop="16dp"
-            android:paddingVertical="16dp"
-            android:text="@string/action_register"
-            android:backgroundTint="@color/colorPrimaryGreen"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPassword"/>
     </LinearLayout>
 
     <include
