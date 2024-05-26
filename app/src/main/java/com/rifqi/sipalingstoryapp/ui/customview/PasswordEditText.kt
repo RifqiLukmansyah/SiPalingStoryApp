@@ -7,15 +7,23 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.rifqi.sipalingstoryapp.R
 
-class PasswordEditText(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatEditText(context, attrs, defStyleAttr) {
-
+class PasswordEditText : AppCompatEditText {
     private var charLength = 0
-
-    init {
+    constructor(context: Context) : super(context) {
         init()
     }
 
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        init()
+    }
 
     private fun init() {
         addTextChangedListener(object : TextWatcher {

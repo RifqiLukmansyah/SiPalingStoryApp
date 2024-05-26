@@ -10,10 +10,21 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.rifqi.sipalingstoryapp.R
 
-class FullNameEditText(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatEditText(context, attrs, defStyleAttr) {
+class FullNameEditText : AppCompatEditText {
 
-    init {
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 

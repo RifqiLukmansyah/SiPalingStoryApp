@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.rifqi.sipalingstoryapp.R
+import com.rifqi.sipalingstoryapp.databinding.ActivityLoginBinding
 import com.rifqi.sipalingstoryapp.databinding.ActivityRegisterBinding
 import com.rifqi.sipalingstoryapp.preferences.ClientState
+import com.rifqi.sipalingstoryapp.ui.customview.showError
 import com.rifqi.sipalingstoryapp.ui.register.RegisterViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.rifqi.sipalingstoryapp.ui.login.LoginActivity
@@ -24,6 +26,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -45,7 +48,23 @@ class RegisterActivity : AppCompatActivity() {
                 val name = edtName.text.toString().trim()
                 val email = edtEmail.text.toString().trim()
                 val pass = edtPassword.text.toString().trim()
-                registerViewModel.performRegister(name, email, pass)
+                when {
+                    name.isEmpty() -> {
+                        binding.edtName.showError(getString(R.string.validation_must_not_empty))
+                    }
+                    email.isEmpty() -> {
+                        binding.edtEmail.showError(getString(R.string.validation_must_not_empty))
+                    }
+                    pass.isEmpty() -> {
+                        binding.edtPassword.showError(getString(R.string.validation_must_not_empty))
+                    }
+                    pass.length < 8 -> {
+                        binding.edtPassword.showError(getString(R.string.validation_password))
+                    }
+                    else -> {
+                        registerViewModel.performRegister(name, email, pass)
+                    }
+                }
             }
         }
     }
@@ -61,7 +80,6 @@ class RegisterActivity : AppCompatActivity() {
 
                     is ClientState.Error -> {
                         binding.loadingLayout.root.visibility = View.GONE
-                        handleError(resources.message)
                     }
 
                     is ClientState.Loading -> {
@@ -78,28 +96,6 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun handleError(errorMSG: String?) {
-        binding.apply {
-            when {
-                errorMSG?.contains("name") == true -> {
-                    edtName.setNameError(errorMSG)
-                }
-
-                errorMSG?.contains("email") == true -> {
-                    edtEmail.setEmailError(errorMSG)
-                }
-
-                errorMSG?.contains("password") == true -> {
-                    edtPassword.setPassError(errorMSG)
-                }
-
-                else -> {
-                    showToast("$errorMSG")
-                }
-
-            }
-        }
-    }
 
     private fun setPageLogin() {
         binding.apply {
@@ -114,23 +110,25 @@ class RegisterActivity : AppCompatActivity() {
     private fun applyAnimation() {
         binding.apply {
 
-            val imgView = ivRegister
-            val tv1 = tv1Register
-            val name = nameEdtRegister
-            val email = emailEdtRegister
-            val pass = passwordEdtRegister
-            val btnRegister = btnSubmitRegister
-            val tv2 = tv2Register
-            val tvLogin = tvLoginHere
+            val registerTitle = tvRegisterTitle
+            val tv1 = tvRegisterSubtitle
+            val name = edtName
+            val email = edtEmail
+            val pass = edtPassword
+            val btnRegister = btnRegister
+            val tv2 = tvNameLabel
+            val tv3 = tvEmailLabel
+            val tv4 = tvPasswordLabel
 
-            val anim1 = ObjectAnimator.ofFloat(imgView, View.TRANSLATION_Y, -600f, 0f)
+            val anim1 = ObjectAnimator.ofFloat(registerTitle, View.TRANSLATION_Y, -600f, 0f)
             val anim2 = ObjectAnimator.ofFloat(tv1, View.TRANSLATION_Y, -600f, 0f)
             val anim3 = ObjectAnimator.ofFloat(name, View.TRANSLATION_Y, -600f, 0f)
             val anim4 = ObjectAnimator.ofFloat(email, View.TRANSLATION_Y, -600f, 0f)
             val anim5 = ObjectAnimator.ofFloat(pass, View.TRANSLATION_Y, -600f, 0f)
             val anim6 = ObjectAnimator.ofFloat(btnRegister, View.TRANSLATION_Y, -600f, 0f)
             val anim7 = ObjectAnimator.ofFloat(tv2, View.TRANSLATION_Y, -600f, 0f)
-            val anim8 = ObjectAnimator.ofFloat(tvLogin, View.TRANSLATION_Y, -600f, 0f)
+            val anim8 = ObjectAnimator.ofFloat(tv3, View.TRANSLATION_Y, -600f, 0f)
+            val anim9 = ObjectAnimator.ofFloat(tv4, View.TRANSLATION_Y, -600f, 0f)
 
             val duration = 3000L
             val interpolator = DecelerateInterpolator()
@@ -159,15 +157,17 @@ class RegisterActivity : AppCompatActivity() {
             anim8.duration = duration
             anim8.interpolator = interpolator
 
+            anim9.duration = duration
+            anim9.interpolator = interpolator
+
+
             val set = AnimatorSet()
             set.playTogether(
-                anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8
+                anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8, anim9
             )
             set.start()
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
+
 }

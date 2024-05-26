@@ -30,17 +30,16 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        setPageRegister()
         setLoginBtn()
         setView()
-        setPageRegister()
         applyAnimation()
 
     }
@@ -67,9 +66,22 @@ class LoginActivity : AppCompatActivity() {
     private fun setLoginBtn() {
         binding.apply {
             btnLogin.setOnClickListener {
-                val email = edtEmail.text.toString().trim()
-                val pass = edtPassword.text.toString().trim()
-                loginViewModel.performLogin(email, pass)
+                val email = binding.edtEmail.text.toString()
+                val password = binding.edtPassword.text.toString()
+                when {
+                    email.isEmpty() -> {
+                        binding.edtEmail.showError(getString(R.string.validation_must_not_empty))
+                    }
+                    password.isEmpty() -> {
+                        binding.edtPassword.showError(getString(R.string.validation_must_not_empty))
+                    }
+                    password.length < 8 -> {
+                        binding.edtPassword.showError(getString(R.string.validation_password))
+                    }
+                    else -> {
+                        loginViewModel.performLogin(email, password)
+                    }
+                }
             }
         }
     }
@@ -84,7 +96,6 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     is ClientState.Error -> {
-                        handleError()
                         binding.loadingLayout.root.visibility = View.GONE
                     }
 
@@ -115,28 +126,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleError() {
-        val email = binding.edtEmail.text.toString()
-        val password = binding.edtPassword.text.toString()
-        when {
-            email.isEmpty() -> {
-                binding.edtEmail.showError(getString(R.string.validation_must_not_empty))
-            }
-            password.isEmpty() -> {
-                binding.edtPassword.showError(getString(R.string.validation_must_not_empty))
-            }
-            password.length < 8 -> {
-                binding.edtPassword.showError(getString(R.string.validation_password))
-            }
-            else -> {
-                loginViewModel.performLogin(email, password)
-            }
-        }
-    }
+
 
     private fun setPageRegister() {
         binding.apply {
-            tvRegisterHere.setOnClickListener {
+            btnRegister.setOnClickListener {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -149,20 +143,25 @@ class LoginActivity : AppCompatActivity() {
             val imgView = ivLogo
             val tv1 = tvLoginTitle
             val tv2 = tvLoginSubtitle
+            val tv3 = tvEmailLabel
+            val tv4 = tvPasswordLabel
             val email = edtEmail
             val pass = edtPassword
             val btnLogin = btnLogin
-            val tv3 = tvRegisterHere
+            val tv5 = tvRegisterHere
             val tvRegister = btnRegister
 
             val anim1 = ObjectAnimator.ofFloat(imgView, View.TRANSLATION_Y, -600f, 0f)
             val anim2 = ObjectAnimator.ofFloat(tv1, View.TRANSLATION_Y, -600f, 0f)
             val anim3 = ObjectAnimator.ofFloat(tv2, View.TRANSLATION_Y, -600f, 0f)
-            val anim4 = ObjectAnimator.ofFloat(email, View.TRANSLATION_Y, -600f, 0f)
-            val anim5 = ObjectAnimator.ofFloat(pass, View.TRANSLATION_Y, -600f, 0f)
-            val anim6 = ObjectAnimator.ofFloat(btnLogin, View.TRANSLATION_Y, -600f, 0f)
-            val anim7 = ObjectAnimator.ofFloat(tv3, View.TRANSLATION_Y, -600f, 0f)
-            val anim8 = ObjectAnimator.ofFloat(tvRegister, View.TRANSLATION_Y, -600f, 0f)
+            val anim4 = ObjectAnimator.ofFloat(tv3, View.TRANSLATION_Y, -600f, 0f)
+            val anim5 = ObjectAnimator.ofFloat(tv4, View.TRANSLATION_Y, -600f, 0f)
+            val anim6 = ObjectAnimator.ofFloat(email, View.TRANSLATION_Y, -600f, 0f)
+            val anim7 = ObjectAnimator.ofFloat(pass, View.TRANSLATION_Y, -600f, 0f)
+            val anim8 = ObjectAnimator.ofFloat(btnLogin, View.TRANSLATION_Y, -600f, 0f)
+            val anim9 = ObjectAnimator.ofFloat(tv5, View.TRANSLATION_Y, -600f, 0f)
+            val anim10 = ObjectAnimator.ofFloat(tvRegister, View.TRANSLATION_Y, -600f, 0f)
+
 
             val duration = 3000L
             val interpolator = DecelerateInterpolator()
@@ -191,14 +190,22 @@ class LoginActivity : AppCompatActivity() {
             anim8.duration = duration
             anim8.interpolator = interpolator
 
+            anim9.duration = duration
+            anim9.interpolator = interpolator
+
+            anim10.duration = duration
+            anim10.interpolator = interpolator
+
             val set = AnimatorSet()
             set.playTogether(
-                anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8
+                anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8, anim9, anim10
             )
             set.start()
 
         }
     }
+
+
 
     private fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()

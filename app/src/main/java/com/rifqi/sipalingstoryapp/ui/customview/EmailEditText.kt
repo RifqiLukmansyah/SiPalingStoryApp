@@ -14,10 +14,21 @@ import androidx.appcompat.widget.AppCompatEditText
 
 import com.rifqi.sipalingstoryapp.R
 
-class EmailEditText(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatEditText(context, attrs, defStyleAttr) {
+class EmailEditText : AppCompatEditText {
 
-    init {
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -51,8 +62,4 @@ class EmailEditText(context: Context, attrs: AttributeSet? = null, defStyleAttr:
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
-    fun EditText.showError(message: String) {
-        error = message
-        requestFocus()
-    }
 }
