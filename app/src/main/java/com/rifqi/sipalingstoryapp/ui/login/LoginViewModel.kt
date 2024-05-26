@@ -8,6 +8,10 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import com.rifqi.sipalingstoryapp.data.api.ApiService
+import com.rifqi.sipalingstoryapp.data.model.LoginResult
+import com.rifqi.sipalingstoryapp.data.response.LoginResponse
+import com.rifqi.sipalingstoryapp.preferences.ClientState
 
 class LoginViewModel (
     private val apiService: ApiService
@@ -51,4 +55,5 @@ class LoginViewModel (
         }
 
     }
+}
 
