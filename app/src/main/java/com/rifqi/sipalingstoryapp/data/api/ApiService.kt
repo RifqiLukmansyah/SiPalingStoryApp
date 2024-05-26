@@ -10,6 +10,11 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+import com.rifqi.sipalingstoryapp.data.response.LoginResponse
+import com.rifqi.sipalingstoryapp.data.response.RegisterResponse
+import com.rifqi.sipalingstoryapp.data.response.StoryResponse
+import com.rifqi.sipalingstoryapp.data.response.DetailResponse
+import com.rifqi.sipalingstoryapp.data.response.AddStoryResponse
 
 interface ApiService {
 
