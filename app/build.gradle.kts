@@ -59,6 +59,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.circleimageview)
     implementation (libs.android.lottie)
+    implementation (libs.dexter)
 
     // EXIF(Exchangeable Image File Format)
     implementation(libs.androidx.exifinterface)

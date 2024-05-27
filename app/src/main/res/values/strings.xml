@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">Si Paling Story</string>
-    <string name="action_login">Login</string>
-    <string name="action_register">Register</string>
-    <string name="action_add_story">Upload Story</string>
-    <string name="action_refresh">Refresh</string>
-    <string name="action_language_setting">Language</string>
+    <string name="app_name" translatable="false">Si Paling Story</string>
+    <string name="action_login" translatable="false">Login</string>
+    <string name="action_register" translatable="false">Register</string>
+    <string name="action_add_story" translatable="false">Upload Story</string>
+    <string name="action_refresh" translatable="false">Refresh</string>
+    <string name="action_language_setting" translatable="false">Language</string>
 
-    <string name="hint_full_name">Enter your full name</string>
-    <string name="hint_email">Enter your email</string>
-    <string name="hint_password">Enter your password</string>
-    <string name="hint_add_story_description">Add your story description</string>
+    <string name="hint_full_name" translatable="false">Enter your full name</string>
+    <string name="hint_email" translatable="false">Enter your email</string>
+    <string name="hint_password" translatable="false">Enter your password</string>
+    <string name="hint_add_story_description" translatable="false">Add your story description</string>
 
-    <string name="label_login">Login</string>
-    <string name="label_login_subtitle">Please login using your account to continue</string>
-    <string name="label_email">Email</string>
+    <string name="label_login" translatable="false">Login</string>
+    <string name="label_login_subtitle" translatable="false">Please login using your account to continue</string>
+    <string name="label_email" translatable="false">Email</string>
     <string name="label_password">Password</string>
-    <string name="label_register_here">Or register here</string>
+    <string name="label_register_here" translatable="false">Or register here</string>
     <string name="label_register">Register</string>
     <string name="label_register_subtitle">Create your account to post your very own stories</string>
     <string name="label_full_name">Full Name</string>
@@ -33,93 +33,44 @@
     <string name="label_no">No</string>
 
 
-    <string name="title_add_story">Add Story</string>
-    <string name="title_stories_location">Stories Location</string>
-    <string name="title_success">Success</string>
-    <string name="title_story_detail">Story Detail</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_logout">Logout</string>
-    <string name="title_close_app">Close Si Paling Story?</string>
-    <string name="title_ask_permission_location">Enable location</string>
+    <string name="title_add_story" translatable="false">Add Story</string>
+    <string name="title_success" translatable="false">Success</string>
+    <string name="title_story_detail" translatable="false">Story Detail</string>
+    <string name="title_settings" translatable="false">Settings</string>
+    <string name="title_logout" translatable="false">Logout</string>
+    <string name="title_close_app" translatable="false">Close Si Paling Story?</string>
 
-    <string name="message_success_upload_story">Your story is uploaded!</string>
-    <string name="message_logout">Are you sure you want to logout?</string>
-    <string name="message_close_app">Are you sure you want to close Si Paling Story?</string>
-    <string name="message_location_access">We request access to your location to provide convenience in enhancing the user experience of using the Si Paling Story application.</string>
+    <string name="message_success_upload_story" translatable="false">Your story is uploaded!</string>
+    <string name="message_logout" translatable="false">Are you sure you want to logout?</string>
+    <string name="message_close_app" translatable="false">Are you sure you want to close Si Paling Story?</string>
 
 
-    <string name="validation_full_name">Full name only allow characters</string>
-    <string name="validation_email">Your email format is incorrect</string>
-    <string name="validation_password">Min 8 characters</string>
-    <string name="validation_must_not_empty">This field must not be empty</string>
-    <string name="validation_description_must_not_empty">Story description must not be empty</string>
-    <string name="validation_photo">You have to add photo for your story</string>
-    <string name="validation_email_not_valid">Email is invalid</string>
-    <string name="validation_email_must_not_empty">Email should not be empty</string>
+    <string name="validation_full_name" translatable="false">Full name only allow characters</string>
+    <string name="validation_email" translatable="false">Your email format is incorrect</string>
+    <string name="validation_password" translatable="false">Min 8 characters</string>
+    <string name="validation_must_not_empty" translatable="false">This field must not be empty</string>
+    <string name="validation_description_must_not_empty" translatable="false">Story description must not be empty</string>
+    <string name="validation_photo" translatable="false">You have to add photo for your story</string>
+    <string name="validation_email_not_valid" translatable="false">Email is invalid</string>
+    <string name="validation_email_must_not_empty" translatable="false">Email should not be empty</string>
 
-    <string name="warning_image_picker_permission">Application need permission to access camera and gallery</string>
+    <string name="warning_image_picker_permission" translatable="false">Application need permission to access camera and gallery</string>
+    <string name="permission_denied" translatable="false">Permission Denied</string>
 
-    <string name="settings">Settings</string>
-    <string name="home">Home</string>
-    <string name="action_logout">Logout</string>
-    <string name="action_allow">Allow</string>
+    <string name="settings" translatable="false">Settings</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="action_logout" translatable="false">Logout</string>
+    <string name="action_allow" translatable="false">Allow</string>
+    <string name="take_photo" translatable="false">Take Photo</string>
+    <string name="choose_from_gallery" translatable="false">Choose from Gallery</string>
+    <string name="no_media_captured" translatable="false">No media captured</string>
+    <string name="no_media_selected" translatable="false">No media selected</string>
+    <string name="please_take_a_picture" translatable="false">Please take a picture</string>
+    <string name="unknown_error" translatable="false">Unknown error</string>
 
     <string-array name="pictures">
         <item>From Camera</item>
         <item>From Gallery</item>
     </string-array>
-
-    <string name="appwidget_text">Recent Stories</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">See  recent stories</string>
-    <string name="title_location_required">Location Permission Needed</string>
-    <string name="message_location_required">This app needs the Location permission, please accept to use location functionality</string>
-    <string name="latitude" translatable="false">Latitude</string>
-    <string name="label_empty_input" translatable="false">-</string>
-    <string name="label_longitude" translatable="false">Longitude</string>
-    <string name="take_location">Take Location</string>
-    <string name="label_add_current_location">Add current location?</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
 
 </resources>

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,7 +15,6 @@ import com.rifqi.sipalingstoryapp.R
 import com.rifqi.sipalingstoryapp.data.StoryAdapter
 import com.rifqi.sipalingstoryapp.databinding.ActivityHomeBinding
 import com.rifqi.sipalingstoryapp.preferences.ClientState
-import com.rifqi.sipalingstoryapp.ui.location.LocationActivity
 import com.rifqi.sipalingstoryapp.ui.setting.SettingActivity
 import com.rifqi.sipalingstoryapp.ui.upload.UploadStoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +25,6 @@ class HomeActivity : AppCompatActivity() {
     private val homeVM: HomeViewModel by viewModel<HomeViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -115,11 +112,6 @@ class HomeActivity : AppCompatActivity() {
             toolBar.apply {
                 btnSetting.setOnClickListener {
                     val intent = Intent(this@HomeActivity, SettingActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                btnLocation.setOnClickListener {
-                    val intent = Intent(this@HomeActivity, LocationActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

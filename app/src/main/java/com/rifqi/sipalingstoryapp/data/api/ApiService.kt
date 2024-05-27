@@ -1,6 +1,5 @@
 package com.rifqi.sipalingstoryapp.data.api
 
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -15,6 +14,7 @@ import com.rifqi.sipalingstoryapp.data.response.RegisterResponse
 import com.rifqi.sipalingstoryapp.data.response.StoryResponse
 import com.rifqi.sipalingstoryapp.data.response.DetailResponse
 import com.rifqi.sipalingstoryapp.data.response.AddStoryResponse
+import okhttp3.MultipartBody
 
 interface ApiService {
 
@@ -49,8 +49,8 @@ interface ApiService {
     @POST("stories")
     suspend fun uploadStory(
         @Part photo: MultipartBody.Part,
-        @Part("description") description : RequestBody,
+        @Part("description") description: RequestBody,
 
-    ): AddStoryResponse
+        ): AddStoryResponse
 
 }

@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
@@ -62,6 +63,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun setLoginBtn() {
         binding.apply {
             btnLogin.setOnClickListener {
@@ -101,6 +104,8 @@ class LoginActivity : AppCompatActivity() {
                     is ClientState.Loading -> {
                         binding.loadingLayout.root.visibility = View.VISIBLE
                     }
+
+                    else -> {}
                 }
             }
         }
@@ -113,6 +118,9 @@ class LoginActivity : AppCompatActivity() {
 
             tokenManager.saveTokenAndSession(auth, true)
 
+
+            ApiConfig.setAuthToken(auth)
+
             val (token) = tokenManager.getTokenAndSession()
             if (token != null) {
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
@@ -121,9 +129,9 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 showToast("Session has expired")
             }
-
         }
     }
+
 
 
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Si Paling Story</string>
+    <string name="action_login" translatable="false">Masuk</string>
+    <string name="action_register" translatable="false">Daftar</string>
+    <string name="action_add_story" translatable="false">Upload Cerita</string>
+    <string name="action_refresh" translatable="false">Muat Ulang</string>
+    <string name="action_language_setting" translatable="false">Bahasa</string>
+
+    <string name="hint_full_name" translatable="false">Masukkan nama lengkap Anda</string>
+    <string name="hint_email" translatable="false">Masukkan email Anda</string>
+    <string name="hint_password" translatable="false">Masukkan password Anda</string>
+    <string name="hint_add_story_description" translatable="false">Tambahkan deskripsi cerita Anda</string>
+
+    <string name="label_login" translatable="false">Masuk</string>
+    <string name="label_login_subtitle" translatable="false">Silahkan masuk menggunakan akun Anda untuk melanjutkan</string>
+    <string name="label_email" translatable="false">Email</string>
+    <string name="label_password" translatable="false">Kata Sandi</string>
+    <string name="label_register_here" translatable="false">atau Daftar di sini</string>
+    <string name="label_register">Daftar</string>
+    <string name="label_register_subtitle">Buat akun Anda untuk memposting cerita Anda sendiri</string>
+    <string name="label_full_name">Nama Lengkap</string>
+    <string name="label_loading">Memuat..</string>
+    <string name="label_day">%1$d hari yang lalu</string>
+    <string name="label_hour">%1$d jam yang lalu</string>
+    <string name="label_minutes">%1$d menit yang lalu</string>
+    <string name="label_seconds">%1$d detik yang lalu</string>
+    <string name="label_story_not_found">Cerita tidak ditemukan</string>
+    <string name="label_photo_story">Upload foto cerita</string>
+    <string name="label_add_story_description">Tambahkan deskripsi cerita</string>
+    <string name="label_choose_image_picker_method">Pilih metode pemilihan gambar</string>
+    <string name="label_description">Deskripsi</string>
+    <string name="label_yes">Ya</string>
+    <string name="label_no">Tidak</string>
+
+
+    <string name="title_add_story">Tambah Cerita</string>
+    <string name="title_success">Berhasil</string>
+    <string name="title_story_detail">Detail Cerita</string>
+    <string name="title_settings">Pengaturan</string>
+    <string name="title_logout">Keluar</string>
+    <string name="title_close_app">Tutup Si Paling Story?</string>
+
+    <string name="message_success_upload_story">Cerita Anda berhasil diunggah!</string>
+    <string name="message_logout">Apakah Anda yakin ingin keluar?</string>
+    <string name="message_close_app">Apakah Anda yakin ingin menutup Si Paling Story?</string>
+
+
+    <string name="validation_full_name">Nama lengkap hanya boleh berisi karakter huruf</string>
+    <string name="validation_email">Format email Anda salah</string>
+    <string name="validation_password">Minimal 8 karakter</string>
+    <string name="validation_must_not_empty">Kolom ini tidak boleh kosong</string>
+    <string name="validation_description_must_not_empty">Deskripsi cerita tidak boleh kosong</string>
+    <string name="validation_photo">Anda harus menambahkan foto untuk cerita Anda</string>
+    <string name="validation_email_not_valid">Email tidak valid</string>
+    <string name="validation_email_must_not_empty">Email tidak boleh kosong</string>
+
+    <string name="warning_image_picker_permission">Aplikasi memerlukan izin untuk mengakses kamera dan galeri</string>
+    <string name="permission_denied">Izin Ditolak</string>
+
+    <string name="settings">Pengaturan</string>
+    <string name="home">Beranda</string>
+</resources>

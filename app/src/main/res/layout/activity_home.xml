@@ -27,21 +27,6 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
-    <include
-        android:id="@+id/layout_empty"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar"
-        layout="@layout/layoutempty"/>
-
-    <include
-        android:id="@+id/layout_error"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar"
-        layout="@layout/layouterror"/>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_story"
         android:src="@drawable/ic_add"

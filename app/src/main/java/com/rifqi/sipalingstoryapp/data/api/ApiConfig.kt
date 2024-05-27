@@ -12,16 +12,19 @@ object ApiConfig {
     private var authToken: String? = null
     private const val BASE_URL = BuildConfig.baseUrl
 
-    fun getApiService(): ApiService{
+    fun getApiService(): ApiService {
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val authInterceptor = Interceptor{chain ->
+        val authInterceptor = Interceptor { chain ->
             val req = chain.request()
             val requestHeaders = req.newBuilder()
-                .addHeader("Authorization", "$authToken")
-                .build()
-            chain.proceed(requestHeaders)
+
+            if (authToken != null) {
+                requestHeaders.addHeader("Authorization", authToken!!)
+            }
+
+            chain.proceed(requestHeaders.build())
         }
 
         val client = OkHttpClient.Builder()
@@ -36,10 +39,9 @@ object ApiConfig {
             .build()
 
         return retrofit.create(ApiService::class.java)
-
     }
 
-    fun setAuthToken(token: String){
+    fun setAuthToken(token: String) {
         authToken = "Bearer $token"
     }
 }
