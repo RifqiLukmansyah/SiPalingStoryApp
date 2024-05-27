@@ -39,7 +39,7 @@ class UploadStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadStoryBinding
     private val uploadVM: UploadViewModel by viewModel()
     private var currentImage: Uri? = null
-    private val CAMERA_REQUEST_CODE = 100
+    private val cameracode = 100
 
     companion object {
         private const val MAX_IMAGE_SIZE = 1000000
@@ -72,7 +72,7 @@ class UploadStoryActivity : AppCompatActivity() {
 
     private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), cameracode)
         } else {
             showGalleryCameraDialog()
         }
@@ -80,7 +80,7 @@ class UploadStoryActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_REQUEST_CODE) {
+        if (requestCode == cameracode) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 showGalleryCameraDialog()
             } else {

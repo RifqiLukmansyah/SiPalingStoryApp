@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -13,14 +12,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.rifqi.sipalingstoryapp.R
-import com.rifqi.sipalingstoryapp.data.getTimeAgo
+import com.rifqi.sipalingstoryapp.data.adapter.getTimeAgo
 import com.rifqi.sipalingstoryapp.data.model.Story
 import com.rifqi.sipalingstoryapp.databinding.ActivityDetailBinding
 import com.rifqi.sipalingstoryapp.preferences.ClientState
 import com.rifqi.sipalingstoryapp.ui.home.HomeActivity
-import com.rifqi.sipalingstoryapp.ui.login.LoginActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Suppress("DEPRECATION")
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailVM: DetailViewModel by viewModel<DetailViewModel>()
@@ -113,7 +112,7 @@ class DetailActivity : AppCompatActivity() {
             }
         }
     }
-    fun View.setAlphaAnimation(animationSpeed: Long): ObjectAnimator {
+    private fun View.setAlphaAnimation(animationSpeed: Long): ObjectAnimator {
         return ObjectAnimator.ofFloat(this, View.ALPHA, 1f)
             .setDuration(animationSpeed)
     }

@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.rifqi.sipalingstoryapp.ui.customview.Settingbutton
+    <com.rifqi.sipalingstoryapp.ui.customview.SettingButton
         android:id="@+id/btnChangeLanguange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

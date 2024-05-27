@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
@@ -25,23 +24,25 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel: LoginViewModel by viewModel<LoginViewModel>()
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         setPageRegister()
         setLoginBtn()
         setView()
         applyAnimation()
-
     }
 
     override fun onResume() {
@@ -62,8 +63,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
     private fun setLoginBtn() {
         binding.apply {
@@ -96,15 +95,12 @@ class LoginActivity : AppCompatActivity() {
                         binding.loadingLayout.root.visibility = View.GONE
                         resources.data?.let { handleLoginSuccess(it) }
                     }
-
                     is ClientState.Error -> {
                         binding.loadingLayout.root.visibility = View.GONE
                     }
-
                     is ClientState.Loading -> {
                         binding.loadingLayout.root.visibility = View.VISIBLE
                     }
-
                     else -> {}
                 }
             }
@@ -115,10 +111,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val auth = loginResult.token
             val tokenManager = UserPreferences.getInstance(this@LoginActivity)
-
             tokenManager.saveTokenAndSession(auth, true)
-
-
             ApiConfig.setAuthToken(auth)
 
             val (token) = tokenManager.getTokenAndSession()
@@ -132,9 +125,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     private fun setPageRegister() {
         binding.apply {
             btnRegister.setOnClickListener {
@@ -147,72 +137,31 @@ class LoginActivity : AppCompatActivity() {
 
     private fun applyAnimation() {
         binding.apply {
-            val imgView = ivLogo
-            val tv1 = tvLoginTitle
-            val tv2 = tvLoginSubtitle
-            val tv3 = tvEmailLabel
-            val tv4 = tvPasswordLabel
-            val email = edtEmail
-            val pass = edtPassword
-            val btnLogin = btnLogin
-            val tv5 = tvRegisterHere
-            val tvRegister = btnRegister
-
-            val anim1 = ObjectAnimator.ofFloat(imgView, View.TRANSLATION_Y, -600f, 0f)
-            val anim2 = ObjectAnimator.ofFloat(tv1, View.TRANSLATION_Y, -600f, 0f)
-            val anim3 = ObjectAnimator.ofFloat(tv2, View.TRANSLATION_Y, -600f, 0f)
-            val anim4 = ObjectAnimator.ofFloat(tv3, View.TRANSLATION_Y, -600f, 0f)
-            val anim5 = ObjectAnimator.ofFloat(tv4, View.TRANSLATION_Y, -600f, 0f)
-            val anim6 = ObjectAnimator.ofFloat(email, View.TRANSLATION_Y, -600f, 0f)
-            val anim7 = ObjectAnimator.ofFloat(pass, View.TRANSLATION_Y, -600f, 0f)
-            val anim8 = ObjectAnimator.ofFloat(btnLogin, View.TRANSLATION_Y, -600f, 0f)
-            val anim9 = ObjectAnimator.ofFloat(tv5, View.TRANSLATION_Y, -600f, 0f)
-            val anim10 = ObjectAnimator.ofFloat(tvRegister, View.TRANSLATION_Y, -600f, 0f)
-
-
             val duration = 3000L
             val interpolator = DecelerateInterpolator()
 
-            anim1.duration = duration
-            anim1.interpolator = interpolator
+            val animations = listOf(
+                ObjectAnimator.ofFloat(ivLogo, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(tvLoginTitle, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(tvLoginSubtitle, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(tvEmailLabel, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(tvPasswordLabel, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(edtEmail, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(edtPassword, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(btnLogin, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(tvRegisterHere, View.TRANSLATION_Y, -600f, 0f),
+                ObjectAnimator.ofFloat(btnRegister, View.TRANSLATION_Y, -600f, 0f)
+            ).onEach {
+                it.duration = duration
+                it.interpolator = interpolator
+            }
 
-            anim2.duration = duration
-            anim2.interpolator = interpolator
-
-            anim3.duration = duration
-            anim3.interpolator = interpolator
-
-            anim4.duration = duration
-            anim4.interpolator = interpolator
-
-            anim5.duration = duration
-            anim5.interpolator = interpolator
-
-            anim6.duration = duration
-            anim6.interpolator = interpolator
-
-            anim7.duration = duration
-            anim7.interpolator = interpolator
-
-            anim8.duration = duration
-            anim8.interpolator = interpolator
-
-            anim9.duration = duration
-            anim9.interpolator = interpolator
-
-            anim10.duration = duration
-            anim10.interpolator = interpolator
-
-            val set = AnimatorSet()
-            set.playTogether(
-                anim1, anim2, anim3, anim4, anim5, anim6, anim7, anim8, anim9, anim10
-            )
-            set.start()
-
+            AnimatorSet().apply {
+                playTogether(animations)
+                start()
+            }
         }
     }
-
-
 
     private fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()

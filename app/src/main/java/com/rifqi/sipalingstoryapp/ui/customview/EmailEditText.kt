@@ -2,16 +2,11 @@ package com.rifqi.sipalingstoryapp.ui.customview
 
 import android.content.Context
 import android.graphics.Canvas
-
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-
 import android.view.View
-import android.widget.EditText
-
 import androidx.appcompat.widget.AppCompatEditText
-
 import com.rifqi.sipalingstoryapp.R
 
 class EmailEditText : AppCompatEditText {

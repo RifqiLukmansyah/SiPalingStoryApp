@@ -10,7 +10,7 @@ import com.rifqi.sipalingstoryapp.R
 import com.rifqi.sipalingstoryapp.R.styleable.SettingButton
 
 @SuppressLint("CustomViewStyleable")
-class Settingbutton (context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
+class SettingButton (context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
     init {
         inflate(context, R.layout.layout_setting_button, this)

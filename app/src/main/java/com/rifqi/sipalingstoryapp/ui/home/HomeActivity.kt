@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rifqi.sipalingstoryapp.R
-import com.rifqi.sipalingstoryapp.data.StoryAdapter
+import com.rifqi.sipalingstoryapp.data.adapter.StoryAdapter
 import com.rifqi.sipalingstoryapp.databinding.ActivityHomeBinding
 import com.rifqi.sipalingstoryapp.preferences.ClientState
 import com.rifqi.sipalingstoryapp.ui.setting.SettingActivity

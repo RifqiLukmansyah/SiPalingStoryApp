@@ -22,6 +22,7 @@ android {
     }
     buildFeatures{
         buildConfig = true
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
         viewBinding = true
     }
@@ -60,29 +61,15 @@ dependencies {
     implementation (libs.circleimageview)
     implementation (libs.android.lottie)
     implementation (libs.dexter)
-
-    // EXIF(Exchangeable Image File Format)
     implementation(libs.androidx.exifinterface)
-
-    // Koin Dependency Injection
     implementation(libs.koin.android)
-
-    // DataStore
     implementation(libs.androidx.datastore.preferences)
-
-    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
-    // Okhttp
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
-
-    // Glide
     implementation(libs.glide)
     ksp(libs.compiler)
-
-    //room
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

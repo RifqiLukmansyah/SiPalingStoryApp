@@ -21,15 +21,8 @@ class UploadViewModel (
     private val _addStory = MutableLiveData<ClientState<AddStoryResponse>>()
     val addStory: LiveData<ClientState<AddStoryResponse>> = _addStory
 
-    private val _description = MutableLiveData<String?>()
-    val description: LiveData<String?> = _description
-
     private val _photoPath = MutableLiveData<Uri>()
     val photoPath: LiveData<Uri> = _photoPath
-
-    fun setPhotoPath(uri: Uri) {
-        _photoPath.postValue(uri)
-    }
 
     fun uploadStory(
         photoPart: MultipartBody.Part,

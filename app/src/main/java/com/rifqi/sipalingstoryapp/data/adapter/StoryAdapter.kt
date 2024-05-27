@@ -1,4 +1,4 @@
-package com.rifqi.sipalingstoryapp.data
+package com.rifqi.sipalingstoryapp.data.adapter
 
 import android.app.Activity
 import android.content.Context
