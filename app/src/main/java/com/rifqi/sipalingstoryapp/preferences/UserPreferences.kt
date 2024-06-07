@@ -22,13 +22,17 @@ class UserPreferences private constructor(context: Context) {
         @Volatile
         private var instance: UserPreferences? = null
 
-        fun getInstance(context: Context): UserPreferences {
-            return instance ?: synchronized(this) {
-                instance ?: UserPreferences(context).also { instance = it }
-            }
+        fun getInstance(context: Context): UserPreferences = instance ?: synchronized(this) {
+            instance ?: UserPreferences(context).also { instance = it }
         }
 
     }
+    suspend fun getToken(): String? {
+        val token = TOKEN
+        val prefs = dataStore.data.first()
+        return prefs[token]
+    }
+
 
     suspend fun saveTokenAndSession(token: String, session: Boolean) {
         dataStore.edit { prefs ->

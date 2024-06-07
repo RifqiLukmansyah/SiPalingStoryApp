@@ -8,13 +8,13 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
-import com.rifqi.sipalingstoryapp.data.api.ApiService
 import com.rifqi.sipalingstoryapp.data.model.LoginResult
+import com.rifqi.sipalingstoryapp.data.repository.AuthenticationRepository
 import com.rifqi.sipalingstoryapp.data.response.LoginResponse
 import com.rifqi.sipalingstoryapp.preferences.ClientState
 
 class LoginViewModel (
-    private val apiService: ApiService
+    private val apiService: AuthenticationRepository
 ) : ViewModel() {
 
     private val _loginResult = MutableLiveData<ClientState<LoginResult>>()

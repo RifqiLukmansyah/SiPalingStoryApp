@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.rifqi.sipalingstoryapp.data.api.ApiService
+import com.rifqi.sipalingstoryapp.data.repository.AppRepository
 import com.rifqi.sipalingstoryapp.data.response.AddStoryResponse
 import com.rifqi.sipalingstoryapp.preferences.ClientState
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class UploadViewModel (
-    private val apiService: ApiService
+    private val appRepo: AppRepository
 ) : ViewModel() {
     private val _addStory = MutableLiveData<ClientState<AddStoryResponse>>()
     val addStory: LiveData<ClientState<AddStoryResponse>> = _addStory
@@ -27,18 +27,21 @@ class UploadViewModel (
     fun uploadStory(
         photoPart: MultipartBody.Part,
         descPart: RequestBody,
+        lat: Double,
+        lon: Double
 
         ) {
         viewModelScope.launch {
             try {
                 _addStory.postValue(ClientState.Loading())
-                val response = apiService.uploadStory(photoPart, descPart)
+                val response = appRepo.upload(photoPart, descPart, lat, lon)
 
-                if (response.error) {
-                    _addStory.postValue(ClientState.Error(response.message))
-                } else {
-                    _addStory.postValue(ClientState.Success(response))
-                }
+                _addStory.postValue(
+                    if (response.error)
+                        ClientState.Error(response.message)
+                    else
+                        ClientState.Success(response)
+                )
 
             } catch (he: HttpException) {
                 handleHttpException(he)

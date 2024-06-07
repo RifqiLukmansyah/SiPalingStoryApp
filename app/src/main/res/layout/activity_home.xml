@@ -29,14 +29,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_story"
-        android:src="@drawable/ic_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:backgroundTint="@color/colorPrimaryGreen"
+        android:contentDescription="@string/action_add_story"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <include
         android:id="@+id/loading_layout"

@@ -2,11 +2,15 @@ package com.rifqi.sipalingstoryapp.ui.detail
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,11 +23,13 @@ import com.rifqi.sipalingstoryapp.preferences.ClientState
 import com.rifqi.sipalingstoryapp.ui.home.HomeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@Suppress("DEPRECATION")
+
 class DetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBinding
-    private val detailVM: DetailViewModel by viewModel<DetailViewModel>()
-    private lateinit var storyId: String
+    private lateinit var binding : ActivityDetailBinding
+    private val detailVM : DetailViewModel by viewModel<DetailViewModel>()
+    private lateinit var storyId : String
+    @SuppressLint("ObsoleteSdkInt")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -39,24 +45,17 @@ class DetailActivity : AppCompatActivity() {
             storyId = story.id
             handleDetail(story)
         }
-        setPageHome()
+
+
         detailVM.detail(storyId)
 
         setView()
-
-       applyTransition()
+        applyTransition()
 
     }
-    private fun setPageHome() {
-        binding.apply {
-            toolBar.setOnClickListener {
-                val intent = Intent(this@DetailActivity, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-    }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setView() {
         binding.apply {
             detailVM.detail.observe(this@DetailActivity) { resources ->
@@ -81,6 +80,8 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun handleDetail(detailView: Story) {
         binding.apply {
             tvUserName.text = detailView.name

@@ -59,16 +59,18 @@
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="match_parent"
-        android:background="@drawable/bg_bordered_edit_text"
-        android:hint="@string/hint_email"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
-        android:textSize="14sp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
         android:autofillHints="emailAddress"
-        tools:ignore="TextFields" />
+        android:background="@drawable/bg_bordered_edit_text"
+        android:hint="@string/hint_email"
+        android:padding="16dp"
+        android:textColorHint="#546E7A"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
+        tools:ignore="TextFields,TextContrastCheck,VisualLintTextFieldSize"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/tvPasswordLabel"
@@ -85,35 +87,38 @@
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:layout_marginHorizontal="16dp"
-        android:inputType="textPassword"
-        android:textSize="14sp"
-        android:background="@drawable/bg_bordered_edit_text"
-        android:maxLines="1"
-        android:hint="@string/hint_password"
         android:layout_marginTop="12dp"
+        android:autofillHints="password"
+        android:background="@drawable/bg_bordered_edit_text"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
-        android:autofillHints="password" />
+        tools:ignore="TextContrastCheck,VisualLintTextFieldSize"
+        tools:layout_editor_absoluteX="16dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
-        android:includeFontPadding="false"
-        app:rippleColor="#40FFFFFF"
-        app:cornerRadius="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimaryGreen"
+        android:includeFontPadding="false"
         android:paddingVertical="16dp"
         android:text="@string/action_login"
-        android:layout_height="60dp"
-        android:layout_width="match_parent"
         android:textColor="@color/white"
-        android:textStyle="bold"
         android:textSize="16sp"
-        android:backgroundTint="@color/colorPrimaryGreen"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+        app:layout_constraintTop_toBottomOf="@id/edtPassword"
+        app:rippleColor="#40FFFFFF"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="0dp"
@@ -162,7 +167,8 @@
         android:backgroundTint="@color/colorPrimaryGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRegisterHere" />
+        app:layout_constraintTop_toBottomOf="@id/tvRegisterHere"
+        tools:ignore="VisualLintButtonSize" />
 
     <include
         android:id="@+id/loading_layout"

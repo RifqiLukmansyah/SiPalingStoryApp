@@ -2,26 +2,27 @@ package com.rifqi.sipalingstoryapp.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rifqi.sipalingstoryapp.R
-import com.rifqi.sipalingstoryapp.data.adapter.StoryAdapter
+import com.rifqi.sipalingstoryapp.data.adapter.PagingAdapter
+import com.rifqi.sipalingstoryapp.data.api.ApiConfig
 import com.rifqi.sipalingstoryapp.databinding.ActivityHomeBinding
-import com.rifqi.sipalingstoryapp.preferences.ClientState
+import com.rifqi.sipalingstoryapp.preferences.UserPreferences
+import com.rifqi.sipalingstoryapp.ui.maps.MapActivity
 import com.rifqi.sipalingstoryapp.ui.setting.SettingActivity
 import com.rifqi.sipalingstoryapp.ui.upload.UploadStoryActivity
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var viewAdapter: StoryAdapter
+    private lateinit var pagingAdapter: PagingAdapter
     private val homeVM: HomeViewModel by viewModel<HomeViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +49,8 @@ class HomeActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, callback)
 
-        homeVM.getStories()
+
         setAdapter()
-        setView()
         setPageUpload()
         onOptionsItemSelected()
     }
@@ -74,36 +74,19 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setAdapter() {
         binding.apply {
-            viewAdapter = StoryAdapter(listOf())
+            pagingAdapter = PagingAdapter()
             rvStory.layoutManager = LinearLayoutManager(this@HomeActivity)
-            rvStory.adapter = viewAdapter
+            rvStory.adapter = pagingAdapter
         }
-    }
-
-    private fun setView() {
-        binding.apply {
-            homeVM.stories.observe(this@HomeActivity) { resources ->
-                when (resources) {
-                    is ClientState.Success -> {
-                        binding.loadingLayout.root.visibility = View.GONE
-                        resources.data?.let { viewAdapter.updateItem(it) }
-                    }
-
-                    is ClientState.Error -> {
-                        binding.loadingLayout.root.visibility = View.GONE
-                        showToast("${resources.message}")
-                    }
-
-                    is ClientState.Loading -> {
-                        binding.loadingLayout.root.visibility = View.VISIBLE
-                    }
-
-                    else -> {}
-                }
+        homeVM.story.observe(this@HomeActivity) {
+            lifecycleScope.launch {
+                val tManager = UserPreferences.getInstance(this@HomeActivity).getToken() ?: ""
+                ApiConfig.setAuthToken(tManager)
+                pagingAdapter.submitData(lifecycle, it)
             }
         }
-
     }
+
 
 
 
@@ -112,6 +95,11 @@ class HomeActivity : AppCompatActivity() {
             toolBar.apply {
                 btnSetting.setOnClickListener {
                     val intent = Intent(this@HomeActivity, SettingActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                btnLocation.setOnClickListener {
+                    val intent = Intent(this@HomeActivity, MapActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -126,11 +114,6 @@ class HomeActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this@HomeActivity, message, Toast.LENGTH_LONG).show()
-        Log.e("SA-HA Toast", message)
     }
 
 }

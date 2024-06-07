@@ -7,21 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/baseline_arrow_back_ios_24"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/imgStory"
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:contentDescription="@string/todo"
         android:scaleType="center"
         android:alpha="0"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar"
-        tools:background="@color/colorPrimaryGreen" />
+        tools:background="@color/colorPrimaryGreen"
+        tools:ignore="MissingConstraints" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_user"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -18,13 +19,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class StoryAdapter (
-    private var items: List<Story>
-) : RecyclerView.Adapter<StoryAdapter.HomeViewHolder>() {
+
+class PagingAdapter : PagingDataAdapter<Story, PagingAdapter.HomeViewHolder>(myDiffCB) {
     class HomeViewHolder(private val binding: ItemstoryBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(user: Story) {
             binding.apply {
-
                 tvUserName.text = user.name
                 tvDescription.text = user.description
                 tvUploadAt.text = user.createdAt.getTimeAgo(root.context)
@@ -49,6 +49,15 @@ class StoryAdapter (
                     root.context.startActivity(intent, optionCompact.toBundle())
 
                 }
+
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        getItem(position).let {
+            if (it != null) {
+                holder.bind(it)
             }
         }
     }
@@ -58,43 +67,18 @@ class StoryAdapter (
         return HomeViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
-    fun updateItem(newList: List<Story>) {
-        val diffResult = DiffUtil.calculateDiff(myDiffCB(items, newList))
-        items = newList
-        diffResult.dispatchUpdatesTo(this)
-    }
-
     companion object {
-        fun myDiffCB(oldList: List<Story>, newList: List<Story>) =
-            object : DiffUtil.Callback() {
-                override fun getOldListSize(): Int {
-                    return oldList.size
-                }
+        val myDiffCB = object : DiffUtil.ItemCallback<Story>() {
 
-                override fun getNewListSize(): Int {
-                    return newList.size
-                }
-
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return oldList[oldItemPosition].id == newList[newItemPosition].id
-                }
-
-                override fun areContentsTheSame(
-                    oldItemPosition: Int,
-                    newItemPosition: Int
-                ): Boolean {
-                    return oldList[oldItemPosition] == newList[newItemPosition]
-                }
-
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
             }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+        }
 
     }
 

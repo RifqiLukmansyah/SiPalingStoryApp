@@ -51,19 +51,20 @@
             android:text="@string/label_full_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLoginSubtitle" />
-        
+
         <com.rifqi.sipalingstoryapp.ui.customview.FullNameEditText
             android:id="@+id/edtName"
-            android:background="@drawable/bg_bordered_edit_text"
-            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_full_name"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
+            android:background="@drawable/bg_bordered_edit_text"
+            android:hint="@string/hint_full_name"
+            android:maxLines="1"
             android:padding="16dp"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvEmailLabel" />
+            app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/tvEmailLabel"
@@ -79,16 +80,17 @@
 
         <com.rifqi.sipalingstoryapp.ui.customview.EmailEditText
             android:id="@+id/edtEmail"
-            android:hint="@string/hint_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_bordered_edit_text"
-            android:maxLines="1"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
-            android:textSize="14sp"
+            android:background="@drawable/bg_bordered_edit_text"
+            android:hint="@string/hint_email"
+            android:maxLines="1"
             android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"/>
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/tvPasswordLabel"
@@ -106,33 +108,35 @@
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_bordered_edit_text"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:maxLines="1"
             android:padding="16dp"
             android:textSize="14sp"
-            android:background="@drawable/bg_bordered_edit_text"
-            android:maxLines="1"
-            android:inputType="textPassword"
-            android:layout_marginHorizontal="16dp"
-            android:hint="@string/hint_password"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"/>
+            app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
-            android:layout_marginHorizontal="16dp"
-            android:layout_height="60dp"
             android:layout_width="match_parent"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            app:rippleColor="#40FFFFFF"
-            app:cornerRadius="8dp"
-            android:textSize="14sp"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryGreen"
+            android:includeFontPadding="false"
             android:paddingVertical="16dp"
             android:text="@string/action_register"
-            android:backgroundTint="@color/colorPrimaryGreen"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+            app:layout_constraintTop_toBottomOf="@id/edtPassword"
+            app:rippleColor="#40FFFFFF"
+            tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,VisualLintButtonSize" />
 
     </LinearLayout>
 

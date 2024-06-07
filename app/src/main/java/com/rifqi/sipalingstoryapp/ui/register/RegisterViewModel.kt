@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.rifqi.sipalingstoryapp.data.api.ApiService
+import com.rifqi.sipalingstoryapp.data.repository.AuthenticationRepository
 import com.rifqi.sipalingstoryapp.data.response.RegisterResponse
 import com.rifqi.sipalingstoryapp.preferences.ClientState
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class RegisterViewModel(
-    private val apiService: ApiService
+    private val apiService: AuthenticationRepository
 ) : ViewModel() {
     private val _register = MutableLiveData<ClientState<RegisterResponse>>()
     val register: LiveData<ClientState<RegisterResponse>> = _register

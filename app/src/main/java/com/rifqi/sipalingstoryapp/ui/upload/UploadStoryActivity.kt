@@ -6,11 +6,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,11 +21,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.rifqi.sipalingstoryapp.BuildConfig
 import com.rifqi.sipalingstoryapp.R
 import com.rifqi.sipalingstoryapp.databinding.ActivityUploadStoryBinding
 import com.rifqi.sipalingstoryapp.preferences.ClientState
 import com.rifqi.sipalingstoryapp.ui.home.HomeActivity
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -34,12 +40,17 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class UploadStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadStoryBinding
     private val uploadVM: UploadViewModel by viewModel()
     private var currentImage: Uri? = null
     private val cameracode = 100
+    private val locationCode = 101
+    private var allowLocation: Boolean = false
+    private lateinit var fusedLP: FusedLocationProviderClient
 
     companion object {
         private const val MAX_IMAGE_SIZE = 1000000
@@ -49,11 +60,111 @@ class UploadStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        fusedLP = LocationServices.getFusedLocationProviderClient(this)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@UploadStoryActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
+        requestPermissions()
+        switchLocations()
         setInsets()
+        btnLocation()
         setPageHome()
         setView()
         btnOpenpicture()
         btnUpload()
+    }
+
+    private fun requestPermissions() {
+        val permissions = mutableListOf<String>()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA)
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+        if (permissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), cameracode)
+        }
+    }
+
+    private fun btnLocation() {
+        binding.btnGetLocation.setOnClickListener {
+            lifecycleScope.launch {
+                checkLocationPermissionAndGetLocation()
+            }
+        }
+    }
+
+    private suspend fun checkLocationPermissionAndGetLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@UploadStoryActivity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationCode
+            )
+        } else {
+            getMyLocation()?.let { location ->
+                settextlocation(location)
+            }
+        }
+    }
+
+    private suspend fun getMyLocation(): Location? = suspendCoroutine { continuation ->
+        if (ActivityCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationCode
+            )
+            continuation.resume(null)
+        } else {
+            fusedLP.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    continuation.resume(location)
+                } else {
+                    continuation.resume(null)
+                }
+            }.addOnFailureListener {
+                continuation.resume(null)
+            }
+        }
+    }
+
+    private fun settextlocation(location: Location) {
+        binding.apply {
+            tvLatitude.text = location.latitude.toString()
+            tvLongitude.text = location.longitude.toString()
+        }
+    }
+
+    private fun switchLocations() {
+        binding.switchLocation.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                allowLocation = true
+                binding.layoutPosition.visibility = View.VISIBLE
+            } else {
+                allowLocation = false
+                binding.layoutPosition.visibility = View.GONE
+            }
+        }
     }
 
     private fun setInsets() {
@@ -67,24 +178,35 @@ class UploadStoryActivity : AppCompatActivity() {
     private fun btnOpenpicture() {
         binding.imgStoryHolder.setOnClickListener {
             checkCameraPermission()
+            showGalleryCameraDialog()
         }
     }
 
     private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), cameracode)
-        } else {
-            showGalleryCameraDialog()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == cameracode) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                showGalleryCameraDialog()
-            } else {
-                showToast(getString(R.string.permission_denied))
+        when (requestCode) {
+            cameracode -> {
+                if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                } else {
+                    showToast(getString(R.string.permission_denied))
+                }
+            }
+            locationCode -> {
+                if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                    lifecycleScope.launch {
+                        getMyLocation()?.let { location ->
+                            settextlocation(location)
+                        }
+                    }
+                } else {
+                    showToast(getString(R.string.permission_denied))
+                }
             }
         }
     }
@@ -186,23 +308,27 @@ class UploadStoryActivity : AppCompatActivity() {
     private fun btnUpload() {
         binding.btnUploadStory.setOnClickListener {
             currentImage?.let { uri ->
-                val fileImage = File(getPathImage(uri))
-                val desc = binding.edtDescription.text.toString()
+                lifecycleScope.launch {
+                    val location = getMyLocation()
+                    val fileImage = File(getPathImage(uri))
+                    val desc = binding.edtDescription.text.toString()
 
-                if (fileImage.exists()) {
-                    val compressedFile = compressImageFile(fileImage)
-                    val photoRB = compressedFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    val descPart = desc.toRequestBody("text/plain".toMediaTypeOrNull())
+                    if (fileImage.exists()) {
+                        val compressedFile = compressImageFile(fileImage)
+                        val photoRB =
+                            compressedFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                        val descPart = desc.toRequestBody("text/plain".toMediaTypeOrNull())
 
-                    val photoPart = MultipartBody.Part.createFormData(
-                        "photo",
-                        compressedFile.name,
-                        photoRB
-                    )
+                        val photoPart = MultipartBody.Part.createFormData(
+                            "photo",
+                            compressedFile.name,
+                            photoRB
+                        )
+                        val lat = location?.latitude ?: 0.0
+                        val lon = location?.longitude ?: 0.0
 
-                    uploadVM.uploadStory(photoPart, descPart)
-                } else {
-                    showToast("Please take a picture")
+                        uploadVM.uploadStory(photoPart, descPart, lat, lon)
+                    }
                 }
             } ?: showToast(getString(R.string.no_media_selected))
         }

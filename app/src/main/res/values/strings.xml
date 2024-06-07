@@ -67,10 +67,23 @@
     <string name="no_media_selected" translatable="false">No media selected</string>
     <string name="please_take_a_picture" translatable="false">Please take a picture</string>
     <string name="unknown_error" translatable="false">Unknown error</string>
+    <string name="todo" translatable="false">TODO</string>
+    <string name="title_location_required" translatable="false">Location Permission Needed</string>
+    <string name="message_location_required" translatable="false">This app needs the Location permission, please accept to use location functionality</string>
+    <string name="latitude" translatable="false">Latitude</string>
+    <string name="label_empty_input" translatable="false">-</string>
+    <string name="label_longitude" translatable="false">Longitude</string>
+    <string name="takelocation" translatable="false">Take Location</string>
+    <string name="label_add_current_location" translatable="false">Add current location?</string>
+    <string name="normal" translatable="false">Normal</string>
+    <string name="satellite" translatable="false">Satellite</string>
+    <string name="terrain" translatable="false">Terrain</string>
+    <string name="hybrid" translatable="false">Hybrid</string>
 
     <string-array name="pictures">
         <item>From Camera</item>
         <item>From Gallery</item>
     </string-array>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

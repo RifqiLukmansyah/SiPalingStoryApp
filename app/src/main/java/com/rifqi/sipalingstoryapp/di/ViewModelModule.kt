@@ -5,6 +5,7 @@ import com.rifqi.sipalingstoryapp.ui.home.HomeViewModel
 import com.rifqi.sipalingstoryapp.ui.login.LoginViewModel
 import com.rifqi.sipalingstoryapp.ui.register.RegisterViewModel
 import com.rifqi.sipalingstoryapp.ui.upload.UploadViewModel
+import com.rifqi.sipalingstoryapp.ui.maps.MapsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -14,4 +15,5 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { UploadViewModel(get()) }
     viewModel { DetailViewModel(get()) }
+    viewModel { MapsViewModel(get()) }
 }

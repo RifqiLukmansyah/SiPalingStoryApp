@@ -3,11 +3,17 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 }
 
 android {
     namespace = "com.rifqi.sipalingstoryapp"
     compileSdk = 34
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        animationsDisabled = true
+    }
 
     defaultConfig {
         applicationId = "com.rifqi.sipalingstoryapp"
@@ -27,6 +33,7 @@ android {
         viewBinding = true
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -43,6 +50,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {
@@ -73,5 +81,22 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.espresso.idling.resource)
+    androidTestImplementation(libs.androidx.espresso.intents)
+    androidTestImplementation(libs.androidx.espresso.contrib)
+    androidTestImplementation(libs.androidx.espresso.idling.resource)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+
 
 }
